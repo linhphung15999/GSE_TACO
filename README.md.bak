@@ -3,7 +3,7 @@
 ## Usage
 Install libraries
   ```
-  pip install -r requirements.txt -f https://dl.fbaipublicfiles.com/detectron2/wheels/cpu/torch1.8/index.html
+  pip install -r requirements.txt -f https://download.pytorch.org/whl/torch_stable.html -f https://dl.fbaipublicfiles.com/detectron2/wheels/cu111/torch1.9/index.html
   ```
   
 Download weights file
