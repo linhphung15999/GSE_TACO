@@ -1,7 +1,7 @@
 # GSE_TACO
 
-## Usage
-Install libraries
+## Usage (for Linux)
+Install libraries (restart is needed)
   ```
   pip install -r requirements.txt -f https://dl.fbaipublicfiles.com/detectron2/wheels/cpu/torch1.8/index.html
   ```
@@ -16,7 +16,7 @@ Get trash detection result (dictionary type). Output images will be saved in the
 
   ```
   from taco import get_model_config, trash_detection
-  cfg = get_model_config(<path to weights file. Default: './model/weights.pth'>)
+  cfg = get_model_config(<path to weights file>) #Blank for default
   result = trash_detection(cfg,<path to input image>)
   print(result)
   ```
