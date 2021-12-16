@@ -14,7 +14,7 @@ Download weights file
 
 Get trash detection result (dictionary type). Output images will be saved in the same folder with the input image.
 
-  ```
+  ```python
   from taco import get_model_config, trash_detection
   cfg = get_model_config(<path to weights file>) #Blank for default
   result = trash_detection(cfg,<path to input image>)
