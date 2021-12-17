@@ -1,7 +1,7 @@
 # GSE_TACO
 
 ## Usage (for Linux)
-Install libraries (restart is needed)
+Install libraries (restarting runtime is needed)
   ```
   pip install -r requirements.txt -f https://dl.fbaipublicfiles.com/detectron2/wheels/cpu/torch1.8/index.html
   ```
