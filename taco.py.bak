@@ -2,7 +2,6 @@ import torch, torchvision
 import cv2
 import os
 from collections import Counter
-import numpy as np
 
 from detectron2 import model_zoo
 from detectron2.engine import DefaultPredictor
@@ -22,14 +21,6 @@ def get_model_config(weights_path="./model/weights.pth"):
 
   return cfg
 
-def get_mask(output):
-  a = np.asarray(output['instances'].pred_masks)
-  a[a==False]=0
-  a[a==True]=1
-  a = np.sum(a,axis=0)
-  a[a>0] = 255
-  return a,np.count_nonzero(a)
-
 def trash_detection_no_crop(cfg,input_path,thresholds=[0.3, 0.6]):
 
   trash_metadata = Metadata()
@@ -44,7 +35,6 @@ def trash_detection_no_crop(cfg,input_path,thresholds=[0.3, 0.6]):
     predictor = DefaultPredictor(cfg)
     im = cv2.imread(input_path)
     outputs = predictor(im)  
-    mask,num_trash_pixels = get_mask(outputs) 
     v = Visualizer(im[:, :, ::-1],
                   metadata=trash_metadata,
                   scale=1
@@ -67,8 +57,6 @@ def trash_detection_no_crop(cfg,input_path,thresholds=[0.3, 0.6]):
         result_at_conf[cat]=c_cat[_]
       else:
         result_at_conf[cat]=0
-    
-    result_at_conf['trash_amount'] = num_trash_pixels/(im.shape[0]*im.shape[1])
     result_json[str(thres)] = result_at_conf
 
     #Draw bounding boxes
@@ -81,7 +69,7 @@ def trash_detection_no_crop(cfg,input_path,thresholds=[0.3, 0.6]):
     extension = os.path.splitext(input_path)[1]
     new_file = file_name+"_output_confident_"+str(thres)+extension
     cv2.imwrite(new_file,result)
-    cv2.imwrite(file_name+"_output_mask_confident_"+str(thres)+extension,mask)
+
   return result_json
 
 def trash_detection_crop(cfg,input_path,thresholds=[0.3,0.6],crop_size=1024):
@@ -101,12 +89,11 @@ def trash_detection_crop(cfg,input_path,thresholds=[0.3,0.6],crop_size=1024):
 
     im = cv2.imread(input_path)
     output_image = im.copy()
-    output_mask = cv2.cvtColor(im.copy(), cv2.COLOR_BGR2GRAY)*0
     h,w = im.shape[0],im.shape[1]
 
     num_ims_w = w//crop_size
     num_ims_h = h//crop_size
-    total_num_trash_pixels = 0
+
     for i in range(0,num_ims_h+1):
       x_min = i*crop_size
       if i+1 == num_ims_h:
@@ -123,9 +110,7 @@ def trash_detection_crop(cfg,input_path,thresholds=[0.3,0.6],crop_size=1024):
 
         input = im[x_min:x_max,y_min:y_max]
 
-        outputs = predictor(input)
-        mask,num_trash_pixels = get_mask(outputs) 
-        total_num_trash_pixels += num_trash_pixels  
+        outputs = predictor(input)  
         v = Visualizer(input[:, :, ::-1],
                       metadata=trash_metadata,
                       scale=1
@@ -164,15 +149,12 @@ def trash_detection_crop(cfg,input_path,thresholds=[0.3,0.6],crop_size=1024):
         instances = outputs["instances"].to("cpu")
         result = out.get_image()[:, :, ::-1]
         output_image[x_min:x_max,y_min:y_max] = result
-        output_mask[x_min:x_max,y_min:y_max] = mask
   
-    result_json[str(thres)]['trash_amount'] = total_num_trash_pixels/(h*w)
     #Write output image back 
     file_name = os.path.splitext(input_path)[0]
     extension = os.path.splitext(input_path)[1]
     new_file = file_name+"_output_confident_"+str(thres)+extension
     cv2.imwrite(new_file,output_image)
-    cv2.imwrite(file_name+"_output_mask_confident_"+str(thres)+extension,output_mask)
     
   return result_json
 
