@@ -33,8 +33,8 @@ Download the dataset
   ```
 
 
-Train and evaluate the model.
-
+Train and evaluate the model. Possible arguments for training configuration ```pythonget_train_config()``` (leave blank for default):
+  * **num_workers**: Number of dataloader workers. Default: 4.
   ```python
   from train import get_train_config, train_model, evaluate_model
 
@@ -44,7 +44,7 @@ Train and evaluate the model.
   ```
 
 ## Evaluation metrics ([Bounding box AP](https://jonathan-hui.medium.com/map-mean-average-precision-for-object-detection-45c121a31173#:~:text=methods%20will%20diverge.-,COCO%20mAP,-Latest%20research%20papers)) of the model used in the project
-| category                  | AP     | category               | AP     | category                | AP     |
+| Category                  | AP     | Category               | AP     | Category                | AP     |
 |:--------------------------|:-------|:-----------------------|:-------|:------------------------|:-------|
 | Aluminium foil            | 65.050 | Battery                | nan    | Aluminium blister pack  | nan    |
 | Carded blister pack       | nan    | Other plastic bottle   | 4.742  | Clear plastic bottle    | 48.379 |
