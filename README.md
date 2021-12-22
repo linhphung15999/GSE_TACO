@@ -33,7 +33,7 @@ Download the dataset
   ```
 
 
-Train and evaluate the model. Possible arguments for training configuration ```python get_train_config()``` (leave blank for default):
+Train and evaluate the model. Possible arguments for training configuration ```get_train_config()``` (leave blank for default):
   * **num_workers**: Number of dataloader workers. Default: 4.
   * **batch_size**: Batch size. Default: 8.
   * **base_lr**: Base learning rate. Default: 0.0125.
