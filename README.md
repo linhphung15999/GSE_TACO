@@ -33,11 +33,36 @@ Download the dataset
   ```
 
 
-Get trash detection result (dictionary type). Output images will be saved in the same folder with the input image.
+Train and evaluate the model.
 
   ```python
-  from taco import get_model_config, trash_detection
-  cfg = get_model_config(<path to weights file>) #Blank for default ('./model/weights.pth')
-  result = trash_detection(cfg,<path to input image>)
-  print(result)
+  from train import get_train_config, train_model, evaluate_model
+
+  cfg = get_train_config()
+  train_model(cfg)
+  evaluate_model(cfg)
   ```
+
+## Evaluation metrics ([Bounding box AP](https://jonathan-hui.medium.com/map-mean-average-precision-for-object-detection-45c121a31173#:~:text=methods%20will%20diverge.-,COCO%20mAP,-Latest%20research%20papers)) of the model used in the project
+| category                  | AP     | category               | AP     | category                | AP     |
+|:--------------------------|:-------|:-----------------------|:-------|:------------------------|:-------|
+| Aluminium foil            | 65.050 | Battery                | nan    | Aluminium blister pack  | nan    |
+| Carded blister pack       | nan    | Other plastic bottle   | 4.742  | Clear plastic bottle    | 48.379 |
+| Glass bottle              | 18.923 | Plastic bottle cap     | 31.944 | Metal bottle cap        | 31.891 |
+| Broken glass              | nan    | Food Can               | 53.936 | Aerosol                 | 33.333 |
+| Drink can                 | 31.786 | Toilet tube            | nan    | Other carton            | 9.887  |
+| Egg carton                | nan    | Drink carton           | 2.456  | Corrugated carton       | 45.071 |
+| Meal carton               | 0.000  | Pizza box              | nan    | Paper cup               | 12.304 |
+| Disposable plastic cup    | 17.022 | Foam cup               | 0.000  | Glass cup               | nan    |
+| Other plastic cup         | nan    | Food waste             | 0.000  | Glass jar               | nan    |
+| Plastic lid               | 13.642 | Metal lid              | nan    | Other plastic           | 4.729  |
+| Magazine paper            | nan    | Tissues                | 9.780  | Wrapping paper          | 3.684  |
+| Normal paper              | 2.506  | Paper bag              | 48.696 | Plastified paper bag    | nan    |
+| Plastic film              | 21.328 | Six pack rings         | nan    | Garbage bag             | 0.000  |
+| Other plastic wrapper     | 14.339 | Single-use carrier bag | 20.969 | Polypropylene bag       | 0.000  |
+| Crisp packet              | 33.342 | Spread tub             | 0.000  | Tupperware              | nan    |
+| Disposable food container | nan    | Foam food container    | 75.149 | Other plastic container | nan    |
+| Plastic glooves           | nan    | Plastic utensils       | 45.446 | Pop tab                 | 1.145  |
+| Rope & strings            | 6.238  | Scrap metal            | 0.000  | Shoe                    | nan    |
+| Squeezable tube           | nan    | Plastic straw          | 15.519 | Paper straw             | nan    |
+| Styrofoam piece           | 27.518 | Unlabeled litter       | 2.827  | Cigarette               | 7.610  |
