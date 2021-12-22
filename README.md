@@ -1,4 +1,4 @@
-# GSE_TACO
+# Trash detection with [TACO](http://tacodataset.org/) dataset
 
 ## Usage (for Linux)
 Install libraries (restarting runtime is needed)
