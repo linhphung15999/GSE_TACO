@@ -39,6 +39,7 @@ Train and evaluate the model. Possible arguments for training configuration ```p
   * **base_lr**: Base learning rate. Default: 0.0125.
   * **num_iterations**: Total number of training iterations. Default: 0.0125.
   * **num_classes**: Number of data classes (60 for the TACO dataset).
+  
   ```python
   from train import get_train_config, train_model, evaluate_model
 
