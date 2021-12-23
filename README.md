@@ -16,7 +16,7 @@ Get trash detection result (dictionary type). Output images will be saved in the
   ```python
   from taco import get_model_config, trash_detection
   cfg = get_model_config(<path to weights file>) #Blank for default ('./model/weights.pth')
-  result = trash_detection(cfg,<path to input image>,crop_size) #crop_size = 0 for no cropping. Default = 0.
+  result = trash_detection(cfg,<path to input image>,crop_size) #crop_size: 1024, 2048,... Default = 0 (no cropping).
   print(result)
   average_trash_amount = result['0.3']['trash_amount']*0.4+result['0.6']['trash_amount']*0.6  #confident score 0.3 is 40% weighted and  confident score 0.6 is 60% weighted
   print("Detected trash amount:",average_trash_amount)
