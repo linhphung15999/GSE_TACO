@@ -23,14 +23,15 @@ Get trash detection result (dictionary type). Output images will be saved in the
   ```
 
 Result format:
-	```
-	{ 
-		'0.3' (confident score):
-			{'paper': 1, 'plastic': 2, 'glass': 3, 'others': 4, 'trash_amount': 0.003},
-		'0.6' (confident score):
-			{'paper': 1, 'plastic': 2, 'glass': 3, 'others': 4, 'trash_amount': 0.003},
-	}
-	```
+  ```
+  { 
+	'0.3' (confident score):
+		{'paper': 1, 'plastic': 2, 'glass': 3, 'others': 4, 'trash_amount': 0.003},
+	'0.6' (confident score):
+		{'paper': 1, 'plastic': 2, 'glass': 3, 'others': 4, 'trash_amount': 0.003},
+  }
+  ```
+
 ```trash_amount``` is the ratio between the number of trash pixels (the whie ones in the Mask image below) and the total number of pixel of the image.
 Input image                             |  Result image                             | Mask
 :--------------------------------------:|:-----------------------------------------:|:-----------------------------------------:
