@@ -104,24 +104,32 @@ def trash_detection_crop(cfg,input_path,thresholds=[0.3,0.6],crop_size=1024):
     output_mask = cv2.cvtColor(im.copy(), cv2.COLOR_BGR2GRAY)*0
     h,w = im.shape[0],im.shape[1]
 
-    num_ims_w = w//crop_size
-    num_ims_h = h//crop_size
+    
+    num_ims_w = int(np.round(w/crop_size))
+    num_ims_h = int(np.round(h/crop_size))
+
+    if (w<crop_size):
+      num_ims_w = 1
+    if (h<crop_size):
+      num_ims_h = 1
+    
+
     total_num_trash_pixels = 0
-    for i in range(0,num_ims_h+1):
+    for i in range(0,num_ims_h):
       x_min = i*crop_size
-      if i+1 == num_ims_h:
+      if (i+1==num_ims_h):
         x_max = h-1
       else:
         x_max = x_min+crop_size-1
       
-      for j in range(0,num_ims_w+1):
+      for j in range(0,num_ims_w):
         y_min = j*crop_size
-        if j+1 == num_ims_w:
+        if (j+1==num_ims_w):
           y_max = w-1
         else:
           y_max = y_min+crop_size-1
 
-        input = im[x_min:x_max,y_min:y_max]
+        input = im[x_min:x_max+1,y_min:y_max+1]
 
         outputs = predictor(input)
         mask,num_trash_pixels = get_mask(outputs) 
@@ -163,8 +171,8 @@ def trash_detection_crop(cfg,input_path,thresholds=[0.3,0.6],crop_size=1024):
         out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
         instances = outputs["instances"].to("cpu")
         result = out.get_image()[:, :, ::-1]
-        output_image[x_min:x_max,y_min:y_max] = result
-        output_mask[x_min:x_max,y_min:y_max] = mask
+        output_image[x_min:x_max+1,y_min:y_max+1] = result
+        output_mask[x_min:x_max+1,y_min:y_max+1] = mask
   
     result_json[str(thres)]['trash_amount'] = total_num_trash_pixels/(h*w)
     #Write output image back 
@@ -177,8 +185,8 @@ def trash_detection_crop(cfg,input_path,thresholds=[0.3,0.6],crop_size=1024):
   return result_json
 
 
-def trash_detection(cfg,input_path,thresholds=[0.3,0.6],crop_size=1024):
+def trash_detection(cfg,input_path,thresholds=[0.3,0.6],crop_size=0):
   if crop_size == 0:
     return trash_detection_no_crop(cfg,input_path,thresholds=[0.3,0.6])
   if crop_size > 0:
-    return trash_detection_crop(cfg,input_path,thresholds=[0.3,0.6],crop_size=1024)
+    return trash_detection_crop(cfg,input_path,thresholds=[0.3,0.6],crop_size=crop_size)
