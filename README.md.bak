@@ -38,7 +38,7 @@ Train and evaluate the model. Possible arguments for training configuration ```g
   * **num_workers**: Number of dataloader workers. Default: 4.
   * **batch_size**: Batch size. Default: 8.
   * **base_lr**: Base learning rate. Default: 0.0125.
-  * **num_iterations**: Total number of training iterations. Default: 4500.
+  * **num_iterations**: Total number of training iterations. Default: 0.0125.
   * **num_classes**: Number of data classes (60 for the TACO dataset).
   
   ```python
