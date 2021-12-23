@@ -23,7 +23,7 @@ Get trash detection result (dictionary type). Output images will be saved in the
   ```
 
 Result format:
-	```python
+	```
 	{ 
 		'0.3' (confident score):
 			{'paper': 1, 'plastic': 2, 'glass': 3, 'others': 4, 'trash_amount': 0.003},
