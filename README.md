@@ -22,7 +22,7 @@ Get trash detection result (dictionary type). Output images will be saved in the
   print("Detected trash amount:",average_trash_amount)
   ```
 
-Result format:
+Example result:
   ```
   { 
 	'0.3' (confident score):
@@ -32,7 +32,7 @@ Result format:
   }
   ```
 
-```trash_amount``` is the ratio between the number of trash pixels (the whie ones in the Mask image below) and the total number of pixel of the image.
+```trash_amount``` is the ratio between the number of trash pixels (the white ones in the Mask image below) and the total number of pixel of the image.
 Input image                             |  Result image                             | Mask
 :--------------------------------------:|:-----------------------------------------:|:-----------------------------------------:
 ![Input image](./img/test_image.jpg)    |  ![Result image](./img/result_image.jpg)  |![Mask image](./img/mask.jpg)
