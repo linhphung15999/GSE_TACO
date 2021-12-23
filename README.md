@@ -23,9 +23,9 @@ Get trash detection result (dictionary type). Output images will be saved in the
   ```
 
 
-Solarized dark                          |  Solarized Ocean
-:--------------------------------------:|:----------------------------------------:
-![Example result](./img/test_image.jpg) |  ![Example result](./img/test_image.jpg)
+Input image                             |  Result image                             | Mask
+:--------------------------------------:|:-----------------------------------------:|:-----------------------------------------:
+![Input image](./img/test_image.jpg)    |  ![Result image](./img/result_image.jpg)  |![Mask image](./img/mask.jpg)
 
 ## Training from scratch with GPU (Linux)
 Install libraries (restarting runtime is needed)
